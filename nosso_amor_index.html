@@ -1,0 +1,1329 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nosso Amor ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&family=Dancing+Script:wght@600&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#c94b7b;--secondary:#f7a8c4;--accent:#ff6b9d;--bg:#0d0a0f;--bg2:#170d16;--bg3:#201020;--text:#f9e8f0;--text2:#d4a0bc;--card:rgba(255,255,255,0.04);--card-border:rgba(255,150,180,0.14);--font-title:'Playfair Display',serif;--font-body:'Lato',sans-serif;--num-color:#f7a8c4;--num-bg:rgba(201,75,123,0.13);--timer-font:'Playfair Display',serif;--transition:0.3s cubic-bezier(.4,0,.2,1);}
+[data-theme="light"]{--bg:#fff5f8;--bg2:#ffe8f1;--bg3:#ffd6e8;--text:#2d0e1c;--text2:#7a3558;--card:rgba(255,255,255,0.75);--card-border:rgba(180,50,100,0.18);--num-bg:rgba(201,75,123,0.1);}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);overflow-x:hidden;transition:background var(--transition),color var(--transition);}
+img{display:block;max-width:100%;}
+button,input,select,textarea{font-family:var(--font-body);}
+a{text-decoration:none;color:inherit;}
+
+/* CURSOR */
+#cursor-dot{width:8px;height:8px;background:var(--accent);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);}
+#cursor-ring{width:28px;height:28px;border:1.5px solid var(--primary);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);opacity:.6;}
+body.cursor-on{cursor:none;}
+body:not(.cursor-on) #cursor-dot,body:not(.cursor-on) #cursor-ring{display:none;}
+
+/* CANVAS */
+#stars-canvas,#petals-canvas,#fhearts-canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;}
+#stars-canvas{z-index:1;}#petals-canvas{z-index:2;}#fhearts-canvas{z-index:3;}
+
+/* HERO */
+#hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;z-index:10;overflow:hidden;}
+#hero-bg-gradient{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse at 30% 40%,#3d0030 0%,#1a0010 55%,#0d000a 100%);}
+#hero-cover-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.28;z-index:1;display:none;transition:opacity .5s;}
+#hero-overlay{position:absolute;inset:0;z-index:2;background:linear-gradient(to top,rgba(13,0,10,.85) 0%,transparent 60%);}
+.hero-content{position:relative;z-index:5;padding:2rem;max-width:720px;width:100%;}
+#couple-names{font-family:var(--font-title);font-size:clamp(2.6rem,9vw,5.5rem);font-weight:700;background:linear-gradient(135deg,#fce4f0 0%,#fff 40%,#f7a8c4 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:3px;margin-bottom:.9rem;animation:fadeUp .9s ease both;line-height:1.1;}
+#hero-phrase{font-family:var(--font-title);font-size:clamp(1rem,2.8vw,1.45rem);font-style:italic;color:var(--secondary);margin-bottom:2.5rem;line-height:1.75;animation:fadeUp 1.2s ease both;max-width:520px;margin-left:auto;margin-right:auto;}
+.btn-primary{display:inline-block;padding:1rem 3.2rem;background:linear-gradient(135deg,var(--primary) 0%,var(--accent) 100%);color:#fff;border:none;border-radius:50px;font-size:1.05rem;font-weight:700;cursor:pointer;text-decoration:none;box-shadow:0 0 32px rgba(201,75,123,.45);animation:heroPulse 2.4s ease-in-out infinite,fadeUp 1.5s ease both;transition:transform .2s,box-shadow .2s;}
+.btn-primary:hover{transform:translateY(-3px) scale(1.04);}
+@keyframes heroPulse{0%,100%{box-shadow:0 0 24px rgba(201,75,123,.4);}50%{box-shadow:0 0 60px rgba(201,75,123,.75);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(32px);}to{opacity:1;transform:translateY(0);}}
+.hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:6;display:flex;flex-direction:column;align-items:center;gap:.4rem;color:var(--text2);font-size:.75rem;letter-spacing:2px;text-transform:uppercase;opacity:.7;}
+.hero-scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--primary),transparent);animation:scrollLine 1.8s ease-in-out infinite;}
+@keyframes scrollLine{0%{transform:scaleY(0);transform-origin:top;opacity:1;}50%{transform:scaleY(1);transform-origin:top;opacity:1;}100%{transform:scaleY(1);transform-origin:bottom;opacity:0;}}
+
+/* MUSIC PLAYER */
+#music-player{position:fixed;bottom:1.4rem;right:1.4rem;z-index:2000;background:rgba(18,6,16,.92);border:1px solid var(--card-border);border-radius:60px;padding:.45rem 1rem .45rem .5rem;display:flex;align-items:center;gap:.6rem;backdrop-filter:blur(14px);box-shadow:0 4px 30px rgba(0,0,0,.4);transition:transform .2s;}
+#music-player:hover{transform:translateY(-2px);}
+.mp-btn{background:var(--primary);border:none;border-radius:50%;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .2s,background .2s;flex-shrink:0;}
+#music-btn{width:36px;height:36px;font-size:.95rem;}
+#music-btn:hover{transform:scale(1.12);background:var(--accent);}
+.mp-nav{width:28px;height:28px;font-size:.75rem;background:rgba(255,255,255,.1);border:1px solid var(--card-border);}
+.mp-nav:hover{background:var(--primary);}
+.music-info{display:flex;flex-direction:column;gap:.15rem;min-width:0;}
+#music-title{font-size:.72rem;color:var(--text2);max-width:120px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.music-bars{display:flex;gap:2px;align-items:flex-end;height:12px;}
+.music-bar{width:3px;background:var(--primary);border-radius:2px;animation:musicBar .8s ease-in-out infinite;}
+.music-bar:nth-child(2){animation-delay:.15s;}.music-bar:nth-child(3){animation-delay:.3s;}.music-bar:nth-child(4){animation-delay:.45s;}
+@keyframes musicBar{0%,100%{height:3px;}50%{height:12px;}}
+.music-bars.paused .music-bar{animation-play-state:paused;}
+#vol-wrap{display:flex;align-items:center;gap:.4rem;}
+#vol-icon{font-size:.85rem;color:var(--text2);}
+#volume-ctrl{width:60px;height:3px;accent-color:var(--primary);cursor:pointer;}
+
+/* BACK TOP */
+#back-top{position:fixed;bottom:5.5rem;right:1.4rem;z-index:2000;width:42px;height:42px;border-radius:50%;background:var(--bg3);border:1px solid var(--card-border);color:var(--secondary);cursor:pointer;font-size:1.1rem;display:none;align-items:center;justify-content:center;box-shadow:0 0 18px rgba(201,75,123,.25);transition:transform .2s,background .2s;}
+#back-top:hover{background:var(--primary);color:#fff;transform:translateY(-3px);}
+#back-top.visible{display:flex;}
+
+/* ADMIN TOGGLE */
+#admin-toggle{position:fixed;top:1.4rem;right:1.4rem;z-index:10000;width:44px;height:44px;border-radius:50%;background:rgba(18,6,16,.9);border:1px solid var(--card-border);color:var(--secondary);cursor:pointer;font-size:1.15rem;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(10px);box-shadow:0 2px 20px rgba(0,0,0,.4);transition:transform .3s,background .2s;}
+#admin-toggle:hover{background:var(--primary);color:#fff;transform:rotate(30deg);}
+
+/* ADMIN PANEL */
+#admin-panel{position:fixed;top:0;right:-440px;width:420px;max-width:100vw;height:100vh;background:#0f0810;border-left:1px solid var(--card-border);z-index:9999;overflow-y:auto;transition:right .35s cubic-bezier(.4,0,.2,1);padding:1.4rem 1.2rem;box-shadow:-8px 0 40px rgba(0,0,0,.6);scrollbar-width:thin;scrollbar-color:var(--primary) transparent;}
+#admin-panel::-webkit-scrollbar{width:4px;}
+#admin-panel::-webkit-scrollbar-thumb{background:var(--primary);border-radius:2px;}
+#admin-panel.open{right:0;}
+.admin-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.3rem;padding-bottom:.8rem;border-bottom:1px solid var(--card-border);}
+.admin-header h2{font-family:var(--font-title);font-size:1.35rem;color:var(--secondary);}
+.admin-close{background:none;border:none;color:var(--text2);cursor:pointer;font-size:1.3rem;padding:.2rem;transition:color .2s;}
+.admin-close:hover{color:var(--primary);}
+.tabs-admin{display:flex;gap:.3rem;flex-wrap:wrap;margin-bottom:1.2rem;}
+.tab-admin{padding:.3rem .75rem;border-radius:20px;background:transparent;border:1px solid var(--card-border);color:var(--text2);cursor:pointer;font-size:.75rem;transition:all .2s;}
+.tab-admin:hover{border-color:var(--primary);color:var(--primary);}
+.tab-admin.active{background:var(--primary);color:#fff;border-color:var(--primary);}
+.tab-admin-content{display:none;}
+.tab-admin-content.active{display:block;}
+.admin-section{margin-bottom:1.6rem;}
+.admin-section h3{font-size:.72rem;text-transform:uppercase;letter-spacing:2px;color:var(--primary);margin-bottom:.8rem;}
+.admin-field{margin-bottom:.7rem;}
+.admin-field label{display:block;font-size:.78rem;color:var(--text2);margin-bottom:.28rem;}
+.admin-field input[type="text"],.admin-field input[type="date"],.admin-field input[type="time"],.admin-field input[type="number"],.admin-field select,.admin-field textarea{width:100%;padding:.55rem .85rem;background:rgba(255,255,255,.05);border:1px solid var(--card-border);border-radius:8px;color:var(--text);font-size:.83rem;transition:border-color .2s;outline:none;}
+.admin-field input:focus,.admin-field select:focus,.admin-field textarea:focus{border-color:var(--primary);}
+.admin-field textarea{min-height:75px;resize:vertical;line-height:1.5;}
+.admin-field input[type="color"]{height:38px;padding:.2rem .4rem;cursor:pointer;}
+.admin-field input[type="file"]{font-size:.78rem;color:var(--text2);}
+.admin-btn{width:100%;padding:.65rem;border-radius:8px;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;cursor:pointer;font-size:.87rem;font-weight:700;transition:opacity .2s,transform .15s;margin-top:.25rem;}
+.admin-btn:hover{opacity:.88;transform:translateY(-1px);}
+.admin-btn.ghost{background:transparent;border:1px solid var(--card-border);color:var(--text2);}
+.admin-btn.ghost:hover{border-color:var(--primary);color:var(--primary);}
+.admin-list-item{display:flex;align-items:center;justify-content:space-between;padding:.45rem .75rem;background:rgba(255,255,255,.04);border:1px solid var(--card-border);border-radius:8px;margin-bottom:.4rem;font-size:.8rem;gap:.5rem;}
+.admin-list-item span{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text2);}
+.admin-list-item .item-actions{display:flex;gap:.25rem;flex-shrink:0;}
+.admin-list-item button{background:transparent;border:1px solid var(--card-border);cursor:pointer;padding:.2rem .4rem;border-radius:5px;color:var(--text2);font-size:.75rem;transition:all .2s;}
+.admin-list-item button:hover{background:var(--primary);color:#fff;border-color:var(--primary);}
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,.04);}
+.toggle-row label{font-size:.83rem;color:var(--text2);}
+.toggle{width:40px;height:22px;background:rgba(255,255,255,.1);border-radius:11px;position:relative;cursor:pointer;border:none;transition:background .25s;flex-shrink:0;}
+.toggle.on{background:var(--primary);}
+.toggle::after{content:'';position:absolute;width:16px;height:16px;background:#fff;border-radius:50%;top:3px;left:3px;transition:left .22s;box-shadow:0 1px 4px rgba(0,0,0,.3);}
+.toggle.on::after{left:21px;}
+
+/* SECTIONS */
+section{position:relative;z-index:10;padding:5.5rem 1.5rem;}
+.section-title{font-family:var(--font-title);font-size:clamp(1.9rem,5vw,3rem);text-align:center;margin-bottom:.4rem;color:var(--text);line-height:1.2;}
+.section-sub{text-align:center;color:var(--text2);font-size:1rem;margin-bottom:3rem;font-style:italic;font-family:var(--font-title);}
+.container{max-width:1120px;margin:0 auto;}
+.section-divider{height:1px;width:80px;margin:0 auto 3rem;background:linear-gradient(90deg,transparent,var(--primary),transparent);}
+
+/* COUNTER */
+#counter{background:var(--bg2);}
+.counter-wrap{display:flex;justify-content:center;gap:1.3rem;flex-wrap:wrap;margin:2rem 0 1.5rem;}
+.counter-box{text-align:center;padding:1.6rem 2.2rem;background:var(--num-bg);border:1px solid var(--card-border);border-radius:18px;min-width:120px;position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s;}
+.counter-box:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(201,75,123,.2);}
+.counter-num{display:block;font-family:var(--timer-font);font-size:clamp(2.8rem,8vw,4.5rem);font-weight:700;color:var(--num-color);line-height:1;letter-spacing:-1px;}
+.counter-label{font-size:.72rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--text2);margin-top:.5rem;display:block;}
+.counter-sub{text-align:center;color:var(--text2);font-style:italic;margin-top:.5rem;font-size:1rem;font-family:var(--font-title);}
+.counter-years{text-align:center;margin-bottom:.5rem;font-family:var(--font-title);font-size:1.15rem;color:var(--secondary);font-style:italic;}
+
+/* TIMELINE */
+#timeline{background:var(--bg);}
+.timeline-wrap{position:relative;padding:1rem 0;}
+.timeline-line{position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,transparent 0%,var(--primary) 15%,var(--primary) 85%,transparent 100%);transform:translateX(-50%);pointer-events:none;}
+.timeline-item{display:flex;gap:2.5rem;margin:0 0 2.5rem;position:relative;align-items:flex-start;}
+.timeline-item:nth-child(odd){flex-direction:row-reverse;}
+.timeline-item:nth-child(odd) .tl-content{text-align:right;}
+.tl-dot-wrap{position:absolute;left:50%;top:1.2rem;transform:translateX(-50%);z-index:2;}
+.tl-dot{width:18px;height:18px;border-radius:50%;background:var(--primary);border:3px solid var(--bg);box-shadow:0 0 16px var(--primary);transition:transform .2s;}
+.tl-dot-wrap:hover .tl-dot{transform:scale(1.4);}
+.tl-spacer{flex:1;max-width:calc(50% - 3rem);}
+.tl-content{flex:1;max-width:calc(50% - 3rem);background:var(--card);border:1px solid var(--card-border);border-radius:18px;padding:1.5rem;transition:transform .25s,box-shadow .25s,border-color .2s;}
+.tl-content:hover{transform:translateY(-4px);box-shadow:0 10px 40px rgba(201,75,123,.15);border-color:rgba(201,75,123,.3);}
+.tl-badge{display:inline-block;font-size:.7rem;color:var(--primary);letter-spacing:1.5px;text-transform:uppercase;font-weight:700;margin-bottom:.4rem;}
+.tl-title{font-family:var(--font-title);font-size:1.25rem;margin:.2rem 0 .5rem;line-height:1.3;}
+.tl-desc{color:var(--text2);font-size:.93rem;line-height:1.65;}
+.tl-img{width:100%;border-radius:12px;margin-top:1rem;max-height:220px;object-fit:cover;}
+.tl-empty{text-align:center;padding:3rem;color:var(--text2);font-style:italic;}
+
+
+
+/* CARTAS */
+#cartas{background:var(--bg3);}
+.cartas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.4rem;}
+.carta-env{perspective:900px;cursor:pointer;transition:transform .2s;}
+.carta-env:hover{transform:translateY(-4px);}
+.carta-inner{position:relative;min-height:190px;transition:transform .65s cubic-bezier(.4,.2,.2,1);transform-style:preserve-3d;}
+.carta-env.open .carta-inner{transform:rotateY(180deg);}
+.carta-face{position:absolute;width:100%;min-height:190px;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:18px;padding:1.5rem;border:1px solid var(--card-border);}
+.carta-front{background:linear-gradient(145deg,#250722,#3d1035);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:.75rem;}
+.carta-back{background:var(--card);transform:rotateY(180deg);display:flex;flex-direction:column;overflow:hidden;}
+.carta-env-icon{font-size:2.6rem;animation:envelopeWave 2s ease-in-out infinite;}
+@keyframes envelopeWave{0%,100%{transform:rotate(-5deg) scale(1);}50%{transform:rotate(5deg) scale(1.08);}}
+.carta-front-title{font-family:var(--font-title);font-size:1.05rem;color:var(--secondary);line-height:1.4;}
+.carta-hint{font-size:.72rem;color:rgba(255,255,255,.35);}
+.carta-back-title{font-family:var(--font-title);font-size:1rem;color:var(--secondary);margin-bottom:.6rem;padding-bottom:.5rem;border-bottom:1px solid var(--card-border);}
+.carta-text{color:var(--text2);font-size:.9rem;line-height:1.7;flex:1;}
+.carta-img-preview{width:100%;border-radius:10px;margin-top:.75rem;max-height:140px;object-fit:cover;}
+.carta-back-actions{display:flex;justify-content:space-between;align-items:center;margin-top:.75rem;flex-wrap:wrap;gap:.4rem;}
+.carta-close{background:none;border:none;color:var(--text2);cursor:pointer;font-size:.78rem;}
+.carta-close:hover{color:var(--primary);}
+.carta-back-btns{display:flex;gap:.4rem;}
+.carta-back-btns button{font-size:.72rem;padding:.25rem .65rem;border-radius:15px;border:1px solid var(--card-border);background:transparent;color:var(--text2);cursor:pointer;transition:all .2s;}
+.carta-back-btns button:hover{background:var(--primary);color:#fff;border-color:var(--primary);}
+@media(max-width:600px){
+  .carta-inner{transform:none !important;min-height:auto;}
+  .carta-face{position:relative;min-height:auto;backface-visibility:visible;transform:none !important;}
+  .carta-env:not(.open) .carta-back{display:none;}
+  .carta-env.open .carta-front{display:none;}
+  .carta-env.open .carta-back{display:flex;}
+}
+
+/* SECRET HEARTS */
+.secret-heart{position:fixed;cursor:pointer;z-index:200;user-select:none;line-height:1;animation:floatBob 3s ease-in-out infinite;filter:drop-shadow(0 0 6px rgba(201,75,123,.5));}
+.secret-heart:hover{filter:drop-shadow(0 0 12px rgba(201,75,123,.9));}
+@keyframes floatBob{0%,100%{transform:translateY(0) rotate(0deg);}33%{transform:translateY(-12px) rotate(4deg);}66%{transform:translateY(-6px) rotate(-3deg);}}
+.heart-modal-overlay{position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.72);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;animation:fadeOverlay .25s ease;}
+@keyframes fadeOverlay{from{opacity:0;}to{opacity:1;}}
+.heart-modal-box{background:linear-gradient(145deg,#250722,#3d1035);border:1px solid rgba(201,75,123,.4);border-radius:22px;padding:2.5rem 2rem;text-align:center;max-width:360px;width:90%;box-shadow:0 0 60px rgba(201,75,123,.35);animation:popIn .3s cubic-bezier(.34,1.56,.64,1);}
+@keyframes popIn{from{transform:scale(.7) translateY(20px);opacity:0;}to{transform:scale(1) translateY(0);opacity:1;}}
+.heart-modal-icon{font-size:3.2rem;margin-bottom:1rem;display:block;}
+.heart-modal-msg{font-family:var(--font-title);font-size:1.35rem;color:var(--text);font-style:italic;margin-bottom:1.6rem;line-height:1.5;}
+.heart-modal-close{background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;padding:.65rem 2.2rem;border-radius:50px;cursor:pointer;font-size:.9rem;font-weight:700;transition:transform .15s;}
+.heart-modal-close:hover{transform:scale(1.05);}
+
+/* 100 COISAS */
+#coisas{background:var(--bg2);}
+.coisas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:.9rem;}
+.coisa-item{background:var(--card);border:1px solid var(--card-border);border-radius:14px;padding:1rem .9rem;text-align:center;cursor:default;position:relative;transition:all .25s;overflow:visible;}
+.coisa-item:hover{border-color:var(--primary);transform:translateY(-5px);box-shadow:0 10px 30px rgba(201,75,123,.18);background:rgba(201,75,123,.07);z-index:50;}
+.coisa-num{font-size:.68rem;color:var(--primary);font-weight:700;letter-spacing:1px;margin-bottom:.3rem;display:block;}
+.coisa-title{font-size:.9rem;color:var(--text);font-weight:600;line-height:1.3;}
+.coisa-tooltip{display:none;position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#1e0c1c;border:1px solid rgba(201,75,123,.35);border-radius:12px;padding:.7rem 1rem;font-size:.8rem;color:var(--text2);width:190px;z-index:200;line-height:1.55;text-align:left;box-shadow:0 10px 40px rgba(0,0,0,.55);pointer-events:none;}
+.coisa-tooltip::before{content:'';position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:10px;height:6px;background:#1e0c1c;clip-path:polygon(0 100%,50% 0,100% 100%);}
+.coisa-item:hover .coisa-tooltip{display:block;}
+
+/* GALLERY */
+#galeria{background:var(--bg);}
+.gallery-tabs{display:flex;gap:.65rem;flex-wrap:wrap;justify-content:center;margin-bottom:2rem;}
+.gallery-tab{padding:.5rem 1.4rem;border-radius:50px;border:1px solid var(--card-border);background:transparent;color:var(--text2);cursor:pointer;font-size:.88rem;transition:all .2s;}
+.gallery-tab.active,.gallery-tab:hover{background:var(--primary);color:#fff;border-color:var(--primary);}
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1.1rem;}
+.gallery-item{position:relative;border-radius:16px;overflow:hidden;background:var(--card);border:1px solid var(--card-border);transition:transform .25s,box-shadow .25s;cursor:pointer;}
+.gallery-item:hover{transform:scale(1.03);box-shadow:0 12px 40px rgba(201,75,123,.2);}
+.gallery-item img{width:100%;height:185px;object-fit:cover;display:block;transition:transform .35s;}
+.gallery-item:hover img{transform:scale(1.06);}
+.gallery-placeholder{width:100%;height:185px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;background:var(--bg3);color:var(--text2);}
+.gallery-info{padding:.75rem 1rem .85rem;}
+.gallery-caption{font-size:.9rem;color:var(--text);font-weight:600;}
+.gallery-date{font-size:.75rem;color:var(--text2);margin-top:.2rem;}
+.gallery-actions{position:absolute;top:.55rem;right:.55rem;display:flex;gap:.3rem;opacity:0;transition:opacity .2s;}
+.gallery-item:hover .gallery-actions{opacity:1;}
+.gallery-actions button{background:rgba(0,0,0,.7);color:#fff;border:none;border-radius:50%;width:30px;height:30px;cursor:pointer;font-size:.78rem;display:flex;align-items:center;justify-content:center;transition:background .2s;}
+.gallery-actions button:hover{background:var(--primary);}
+.gallery-empty{text-align:center;padding:4rem 1rem;color:var(--text2);font-style:italic;grid-column:1/-1;font-family:var(--font-title);font-size:1.05rem;}
+
+/* LIGHTBOX */
+#lightbox{position:fixed;inset:0;z-index:9990;background:rgba(0,0,0,.88);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;flex-direction:column;gap:1rem;}
+#lightbox.active{display:flex;}
+#lightbox img{max-width:90vw;max-height:80vh;object-fit:contain;border-radius:12px;box-shadow:0 0 60px rgba(0,0,0,.6);}
+#lightbox-caption{color:var(--text2);font-size:.9rem;font-style:italic;}
+#lightbox-close{position:absolute;top:1.2rem;right:1.5rem;background:none;border:none;color:#fff;font-size:2rem;cursor:pointer;transition:color .2s;}
+#lightbox-close:hover{color:var(--primary);}
+#lightbox-nav{display:flex;gap:1.5rem;}
+#lightbox-nav button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;width:46px;height:46px;border-radius:50%;cursor:pointer;font-size:1.2rem;transition:background .2s;display:flex;align-items:center;justify-content:center;}
+#lightbox-nav button:hover{background:var(--primary);}
+
+/* FINAL */
+#final{background:radial-gradient(ellipse at 50% 30%,#3d0030 0%,#1a0010 55%,#0d0008 100%);text-align:center;min-height:65vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6rem 1.5rem;position:relative;}
+#final-title{font-family:var(--font-title);font-size:clamp(2rem,6vw,3.8rem);color:var(--text);margin-bottom:1.4rem;line-height:1.2;}
+#final-msg{font-size:1.1rem;color:var(--text2);max-width:580px;line-height:1.95;margin-bottom:2.5rem;font-style:italic;font-family:var(--font-title);}
+#final-btn{padding:1rem 3.2rem;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff;border:none;border-radius:50px;font-size:1.05rem;font-weight:700;cursor:pointer;box-shadow:0 0 35px rgba(201,75,123,.45);transition:transform .2s,box-shadow .2s;}
+#final-btn:hover{transform:scale(1.06) translateY(-3px);box-shadow:0 0 65px rgba(201,75,123,.7);}
+
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(38px);transition:opacity .75s ease,transform .75s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* TOAST */
+#toast{position:fixed;bottom:6.5rem;left:50%;transform:translateX(-50%) translateY(60px);background:#1e0c1c;border:1px solid rgba(201,75,123,.4);color:var(--text);padding:.65rem 1.4rem;border-radius:50px;font-size:.85rem;z-index:20000;pointer-events:none;transition:transform .35s,opacity .35s;opacity:0;white-space:nowrap;}
+#toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+  .timeline-line{left:1.5rem;}
+  .timeline-item,.timeline-item:nth-child(odd){flex-direction:column;padding-left:3.8rem;}
+  .timeline-item:nth-child(odd) .tl-content{text-align:left;}
+  .tl-content{max-width:100%;}
+  .tl-dot-wrap{left:1.5rem;}
+  .tl-spacer{display:none;}
+  #admin-panel{width:100%;right:-100%;}
+  .counter-box{padding:1.2rem 1.5rem;min-width:100px;}
+  .coisas-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr));}
+}
+@media(max-width:480px){
+  section{padding:4rem 1rem;}
+  .counter-wrap{gap:.8rem;}
+  .counter-box{min-width:80px;padding:1rem 1.1rem;}
+}
+</style>
+</head>
+<body data-theme="dark" class="cursor-on">
+
+<!-- CURSOR -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<!-- CANVAS FX -->
+<canvas id="stars-canvas"></canvas>
+<canvas id="petals-canvas"></canvas>
+<canvas id="fhearts-canvas"></canvas>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- BACK TOP -->
+<button id="back-top" title="Voltar ao topo" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- MUSIC PLAYER -->
+<div id="music-player">
+  <button class="mp-btn" id="music-prev" onclick="prevTrack()" title="Anterior">⏮</button>
+  <button class="mp-btn" id="music-btn" onclick="toggleMusic()" title="Play/Pause">▶</button>
+  <button class="mp-btn" id="music-next" onclick="nextTrack()" title="Próxima">⏭</button>
+  <div class="music-info">
+    <div id="music-title">Adicione músicas ♪</div>
+    <div class="music-bars paused" id="music-bars">
+      <div class="music-bar"></div><div class="music-bar"></div>
+      <div class="music-bar"></div><div class="music-bar"></div>
+    </div>
+  </div>
+  <div id="vol-wrap">
+    <span id="vol-icon">🔊</span>
+    <input type="range" id="volume-ctrl" min="0" max="1" step="0.05" value="0.6" oninput="setVolume(this.value)" title="Volume">
+  </div>
+  <audio id="audio-el"></audio>
+</div>
+
+<!-- ADMIN TOGGLE -->
+<button id="admin-toggle" onclick="toggleAdmin()" title="Painel de Edição">⚙️</button>
+
+<!-- ============================================================ ADMIN PANEL ============================================================ -->
+<div id="admin-panel">
+  <div class="admin-header">
+    <h2>✨ Painel de Edição</h2>
+    <button class="admin-close" onclick="toggleAdmin()">✕</button>
+  </div>
+  <div class="tabs-admin">
+    <button class="tab-admin active" onclick="adminTab('aparencia',this)">Aparência</button>
+    <button class="tab-admin" onclick="adminTab('hero',this)">Capa</button>
+    <button class="tab-admin" onclick="adminTab('contador',this)">Contador</button>
+    <button class="tab-admin" onclick="adminTab('timeline',this)">Timeline</button>
+    <button class="tab-admin" onclick="adminTab('cartas',this)">Cartas</button>
+    <button class="tab-admin" onclick="adminTab('coracoes',this)">Corações</button>
+    <button class="tab-admin" onclick="adminTab('coisas',this)">100 Coisas</button>
+    <button class="tab-admin" onclick="adminTab('galeria',this)">Galeria</button>
+    <button class="tab-admin" onclick="adminTab('final',this)">Final</button>
+    <button class="tab-admin" onclick="adminTab('musica',this)">Música</button>
+    <button class="tab-admin" onclick="adminTab('extras',this)">Extras</button>
+  </div>
+
+  <!-- APARÊNCIA -->
+  <div id="tab-aparencia" class="tab-admin-content active">
+    <div class="admin-section">
+      <h3>🎨 Cores</h3>
+      <div class="admin-field"><label>Cor Principal</label><input type="color" value="#c94b7b" oninput="setVar('--primary',this.value)"></div>
+      <div class="admin-field"><label>Cor Secundária</label><input type="color" value="#f7a8c4" oninput="setVar('--secondary',this.value)"></div>
+      <div class="admin-field"><label>Cor dos Números</label><input type="color" value="#f7a8c4" oninput="setVar('--num-color',this.value)"></div>
+    </div>
+    <div class="admin-section">
+      <h3>🔤 Tipografia</h3>
+      <div class="admin-field"><label>Fonte dos Títulos</label>
+        <select onchange="setVar('--font-title',this.value)">
+          <option value="'Playfair Display',serif">Playfair Display</option>
+          <option value="'Dancing Script',cursive">Dancing Script</option>
+          <option value="'Great Vibes',cursive">Great Vibes</option>
+          <option value="Georgia,serif">Georgia</option>
+        </select>
+      </div>
+      <div class="admin-field"><label>Fonte do Contador</label>
+        <select onchange="setVar('--timer-font',this.value)">
+          <option value="'Playfair Display',serif">Playfair Display</option>
+          <option value="'Lato',sans-serif">Lato</option>
+          <option value="monospace">Monospace</option>
+        </select>
+      </div>
+    </div>
+    <div class="admin-section">
+      <h3>🌗 Tema</h3>
+      <div class="toggle-row"><label>Modo Escuro</label><button class="toggle on" id="theme-tog" onclick="toggleTheme(this)"></button></div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div id="tab-hero" class="tab-admin-content">
+    <div class="admin-section">
+      <h3>💑 Identidade</h3>
+      <div class="admin-field"><label>Nomes do Casal</label><input type="text" id="in-names" value="Ana &amp; João" oninput="document.getElementById('couple-names').textContent=this.value;debounceSave()"></div>
+      <div class="admin-field"><label>Frase Principal</label><textarea id="in-phrase" oninput="document.getElementById('hero-phrase').textContent=this.value;debounceSave()">Cada dia ao seu lado é o mais bonito da minha vida.</textarea></div>
+      <div class="admin-field"><label>Texto do Botão</label><input type="text" id="in-btntext" value="Começar nossa história ❤️" oninput="document.getElementById('start-btn').textContent=this.value"></div>
+    </div>
+    <div class="admin-section">
+      <h3>🖼️ Foto de Capa</h3>
+      <div class="admin-field"><label>Upload</label><input type="file" accept="image/*" onchange="setCoverImg(this)"></div>
+      <div class="admin-field"><label>Opacidade (%)</label><input type="number" min="10" max="80" value="28" oninput="document.getElementById('hero-cover-img').style.opacity=(this.value/100)"></div>
+      <button class="admin-btn ghost" onclick="removeCoverImg()">🗑️ Remover Foto</button>
+    </div>
+  </div>
+
+  <!-- CONTADOR -->
+  <div id="tab-contador" class="tab-admin-content">
+    <div class="admin-section">
+      <h3>⏳ Data de Início</h3>
+      <div class="admin-field"><label>Data</label><input type="date" id="start-date" onchange="updateStartDate()"></div>
+      <div class="admin-field"><label>Hora</label><input type="time" id="start-time" value="00:00" onchange="updateStartDate()"></div>
+    </div>
+    <div class="admin-section">
+      <h3>📝 Textos</h3>
+      <div class="admin-field"><label>Título</label><input type="text" id="in-counter-title" value="Nosso tempo juntos ❤️" oninput="document.getElementById('counter-title').textContent=this.value"></div>
+      <div class="admin-field"><label>Frase</label><input type="text" id="in-counter-sub" value="Cada segundo ao seu lado valeu a pena." oninput="document.getElementById('counter-sub-text').textContent=this.value"></div>
+    </div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div id="tab-timeline" class="tab-admin-content">
+    <div class="admin-section">
+      <h3>➕ Novo Momento</h3>
+      <div class="admin-field"><label>Data</label><input type="text" id="tl-in-date" placeholder="ex: 15/03/2023"></div>
+      <div class="admin-field"><label>Título *</label><input type="text" id="tl-in-title" placeholder="ex: Primeiro encontro"></div>
+      <div class="admin-field"><label>Descrição</label><textarea id="tl-in-desc" placeholder="O que foi especial neste dia?"></textarea></div>
+      <div class="admin-field"><label>Foto (opcional)</label><input type="file" id="tl-in-img" accept="image/*"></div>
+      <button class="admin-btn" onclick="addTLItem()">✨ Adicionar Momento</button>
+    </div>
+    <div class="admin-section"><h3>📋 Momentos</h3><div id="tl-admin-list"></div></div>
+  </div>
+
+  <!-- CARTAS -->
+  <div id="tab-cartas" class="tab-admin-content">
+    <div class="admin-section">
+      <h3>💌 Nova Carta</h3>
+      <div class="admin-field"><label>Título *</label><input type="text" id="carta-in-title" placeholder="ex: Abra quando sentir saudade"></div>
+      <div class="admin-field"><label>Mensagem</label><textarea id="carta-in-text" placeholder="Escreva com o coração..."></textarea></div>
+      <div class="admin-field"><label>Foto (opcional)</label><input type="file" id="carta-in-img" accept="image/*"></div>
+      <button class="admin-btn" onclick="addCarta()">💌 Adicionar Carta</button>
+    </div>
+    <div class="admin-section"><h3>📋 Cartas</h3><div id="carta-admin-list"></div></div>
+  </div>
+
+  <!-- CORAÇÕES -->
+  <div id="tab-coracoes" class="tab-admin-content">
+    <div class="admin-section">
+      <h3>➕ Nova Mensagem Secreta</h3>
+      <div class="admin-field"><label>Mensagem</label><input type="text" id="heart-in-msg" placeholder="ex: Você é meu lugar seguro."></div>
+      <button class="admin-btn" onclick="addHeartMsg()">❤️ Adicionar</button>
+    </div>
+    <div class="admin-section">
+      <h3>⚙️ Configurações</h3>
+      <div class="admin-field"><label>Quantidade</label><input type="number" id="heart-count" min="2" max="20" value="6" onchange="renderSecretHearts()"></div>
+      <div class="admin-field"><label>Cor</label><input type="color" id="heart-color" value="#ff6b9d" onchange="renderSecretHearts()"></div>
+      <div class="admin-field"><label>Tamanho (px)</label><input type="number" id="heart-size" min="16" max="56" value="28" onchange="renderSecretHearts()"></div>
+    </div>
+    <div class="admin-section"><h3>📋 Mensagens</h3><div id="heart-admin-list"></div></div>
+  </div>
+
+  <!-- 100 COISAS -->
+  <div id="tab-coisas" class="tab-admin-content">
+    <div class="admin-section">
+      <h3>➕ Novo Item</h3>
+      <div class="admin-field"><label>Título *</label><input type="text" id="coisa-in-title" placeholder="ex: Seu sorriso"></div>
+      <div class="admin-field"><label>Descrição (opcional)</label><input type="text" id="coisa-in-desc" placeholder="ex: Ilumina meu dia mais cinza."></div>
+      <button class="admin-btn" onclick="addCoisa()">🌹 Adicionar</button>
+    </div>
+    <div class="admin-section"><h3>📋 Itens (<span id="coisa-count">0</span>)</h3><div id="coisa-admin-list" style="max-height:280px;overflow-y:auto;"></div></div>
+  </div>
+
+  <!-- GALERIA -->
+  <div id="tab-galeria" class="tab-admin-content">
+    <div class="admin-section">
+      <h3>📸 Adicionar Foto</h3>
+      <div class="admin-field"><label>Categoria</label><select id="gal-in-cat"></select></div>
+      <div class="admin-field"><label>Fotos (múltiplas)</label><input type="file" id="gal-in-img" accept="image/*" multiple></div>
+      <div class="admin-field"><label>Legenda</label><input type="text" id="gal-in-caption" placeholder="ex: Uma tarde inesquecível"></div>
+      <div class="admin-field"><label>Data</label><input type="text" id="gal-in-date" placeholder="ex: Julho 2024"></div>
+      <button class="admin-btn" onclick="addGalleryItem()">📷 Adicionar Foto</button>
+    </div>
+    <div class="admin-section">
+      <h3>🗂️ Categorias</h3>
+      <div class="admin-field"><label>Nova Categoria</label><input type="text" id="new-cat-in" placeholder="Nome da categoria"></div>
+      <button class="admin-btn ghost" onclick="addGalleryCategory()">➕ Criar Categoria</button>
+      <div id="cat-admin-list" style="margin-top:.6rem;"></div>
+    </div>
+  </div>
+
+  <!-- FINAL -->
+  <div id="tab-final" class="tab-admin-content">
+    <div class="admin-section">
+      <h3>💎 Mensagem Final</h3>
+      <div class="admin-field"><label>Título</label><input type="text" id="in-final-title" value="Você é o meu maior tesouro" oninput="document.getElementById('final-title').textContent=this.value"></div>
+      <div class="admin-field"><label>Mensagem</label><textarea id="in-final-msg" oninput="document.getElementById('final-msg').textContent=this.value">Depois de todos os momentos que vivemos, percebi que o maior tesouro da minha vida sempre foi você.</textarea></div>
+      <div class="admin-field"><label>Texto do Botão</label><input type="text" id="in-final-btn" value="Te amo pra sempre ❤️" oninput="document.getElementById('final-btn').textContent=this.value"></div>
+    </div>
+  </div>
+
+  <!-- MÚSICA -->
+  <div id="tab-musica" class="tab-admin-content">
+    <div class="admin-section">
+      <h3>🎵 Adicionar Músicas</h3>
+      <div class="admin-field"><label>Arquivo(s) MP3/OGG — múltiplos permitidos</label><input type="file" accept="audio/*" multiple onchange="addMusicFiles(this)"></div>
+      <p style="font-size:.75rem;color:var(--text2);margin-top:.3rem">As músicas tocam em sequência e reiniciam automaticamente.</p>
+    </div>
+    <div class="admin-section">
+      <h3>📋 Playlist</h3>
+      <div id="playlist-admin-list"><p style="color:var(--text2);font-size:.8rem;text-align:center;padding:.5rem">Nenhuma música ainda</p></div>
+    </div>
+    <div class="admin-section">
+      <div class="admin-field"><label>Volume</label><input type="range" min="0" max="1" step="0.05" value="0.6" oninput="setVolume(this.value);document.getElementById('volume-ctrl').value=this.value"></div>
+    </div>
+  </div>
+
+  <!-- EXTRAS -->
+  <div id="tab-extras" class="tab-admin-content">
+    <div class="admin-section">
+      <h3>✨ Efeitos Visuais</h3>
+      <div class="toggle-row"><label>⭐ Estrelas cintilantes</label><button class="toggle on" id="fx-stars" onclick="toggleFx('stars',this)"></button></div>
+      <div class="toggle-row"><label>🌸 Chuva de pétalas</label><button class="toggle on" id="fx-petals" onclick="toggleFx('petals',this)"></button></div>
+      <div class="toggle-row"><label>💕 Corações flutuantes</label><button class="toggle on" id="fx-fhearts" onclick="toggleFx('fhearts',this)"></button></div>
+      <div class="toggle-row"><label>🖱️ Cursor personalizado</label><button class="toggle on" id="fx-cursor" onclick="toggleCursor(this)"></button></div>
+    </div>
+    <div class="admin-section">
+      <h3>💾 Backup dos Dados</h3>
+      <p style="font-size:.78rem;color:var(--text2);margin-bottom:.8rem">Exporte todos os dados para um arquivo JSON e importe em outro dispositivo.</p>
+      <button class="admin-btn" onclick="exportData()" style="margin-bottom:.6rem">⬇️ Exportar todos os dados</button>
+      <div class="admin-field"><label>Importar dados (.json)</label><input type="file" accept=".json" onchange="importData(this)"></div>
+      <p style="font-size:.72rem;color:var(--text2);margin-top:.3rem">⚠️ Importar substituirá todos os dados atuais.</p>
+    </div>
+    <div class="admin-section">
+      <h3>🗑️ Limpar Dados</h3>
+      <button class="admin-btn ghost" onclick="if(confirm('Apagar tudo do localStorage?')){localStorage.removeItem('nossoAmor_v2');toast('🗑️ Dados apagados');}">Apagar dados salvos</button>
+    </div>
+  </div>
+</div><!-- /admin-panel -->
+
+<!-- HERO -->
+<section id="hero">
+  <div id="hero-bg-gradient"></div>
+  <img id="hero-cover-img" alt="Foto do casal">
+  <div id="hero-overlay"></div>
+  <div class="hero-content">
+    <div id="couple-names">Ana &amp; João</div>
+    <p id="hero-phrase">Cada dia ao seu lado é o mais bonito da minha vida.</p>
+    <a href="#counter" id="start-btn" class="btn-primary">Começar nossa história ❤️</a>
+  </div>
+  <div class="hero-scroll"><div class="hero-scroll-line"></div><span>rolar</span></div>
+</section>
+
+<!-- COUNTER -->
+<section id="counter">
+  <div class="container">
+    <h2 class="section-title reveal" id="counter-title">Nosso tempo juntos ❤️</h2>
+    <div class="section-divider"></div>
+    <div id="counter-years" class="counter-years reveal"></div>
+    <div class="counter-wrap reveal">
+      <div class="counter-box"><span class="counter-num" id="c-days">---</span><span class="counter-label">Dias</span></div>
+      <div class="counter-box"><span class="counter-num" id="c-hours">--</span><span class="counter-label">Horas</span></div>
+      <div class="counter-box"><span class="counter-num" id="c-mins">--</span><span class="counter-label">Minutos</span></div>
+      <div class="counter-box"><span class="counter-num" id="c-secs">--</span><span class="counter-label">Segundos</span></div>
+    </div>
+    <p class="counter-sub reveal" id="counter-sub-text">Cada segundo ao seu lado valeu a pena.</p>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <div class="container">
+    <h2 class="section-title reveal">Nossa História 📖</h2>
+    <p class="section-sub reveal">Os momentos que definiram o nosso amor</p>
+    <div class="section-divider"></div>
+    <div class="timeline-wrap">
+      <div class="timeline-line"></div>
+      <div id="tl-wrap"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CARTAS -->
+<section id="cartas">
+  <div class="container">
+    <h2 class="section-title reveal">Cartinhas para você 💌</h2>
+    <p class="section-sub reveal">Clique nos envelopes para abrir cada mensagem</p>
+    <div class="section-divider"></div>
+    <div class="cartas-grid reveal" id="cartas-grid"></div>
+  </div>
+</section>
+
+<!-- 100 COISAS -->
+<section id="coisas">
+  <div class="container">
+    <h2 class="section-title reveal">100 Coisas que Amo em Você 🌹</h2>
+    <p class="section-sub reveal">Passe o mouse para descobrir</p>
+    <div class="section-divider"></div>
+    <div class="coisas-grid reveal" id="coisas-grid"></div>
+  </div>
+</section>
+
+<!-- GALERIA -->
+<section id="galeria">
+  <div class="container">
+    <h2 class="section-title reveal">Nossa Galeria 📸</h2>
+    <p class="section-sub reveal">As memórias mais bonitas que guardamos juntos</p>
+    <div class="section-divider"></div>
+    <div class="gallery-tabs reveal" id="gal-tabs"></div>
+    <div class="gallery-grid reveal" id="gal-grid"></div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <button id="lightbox-close" onclick="closeLB()">✕</button>
+  <img id="lb-img" src="" alt="">
+  <div id="lightbox-caption"></div>
+  <div id="lightbox-nav">
+    <button onclick="lbNav(-1)">‹</button>
+    <button onclick="lbNav(1)">›</button>
+  </div>
+</div>
+
+<!-- FINAL -->
+<section id="final">
+  <h2 id="final-title" class="reveal">Você é o meu maior tesouro</h2>
+  <p id="final-msg" class="reveal">Depois de todos os momentos que vivemos, percebi que o maior tesouro da minha vida sempre foi você.</p>
+  <button id="final-btn" class="reveal" onclick="showFinalHeart()">Te amo pra sempre ❤️</button>
+</section>
+
+<!-- HEART MODAL -->
+<div id="heart-modal" style="display:none" onclick="closeHeartModal()">
+  <div class="heart-modal-overlay">
+    <div class="heart-modal-box" onclick="event.stopPropagation()">
+      <span class="heart-modal-icon">❤️</span>
+      <p class="heart-modal-msg" id="hm-msg"></p>
+      <button class="heart-modal-close" onclick="closeHeartModal()">Fechar com amor</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   STATE
+   ============================================================ */
+const S = {
+  startDate: null,
+  musicPlaylist: [],
+  musicIndex: 0,
+  timeline: [
+    {id:1,date:'15/03/2023',title:'Primeiro encontro ❤️',desc:'Foi nesse dia que tudo começou. Estava tão nervoso, mas seu sorriso fez tudo parecer fácil.',img:null},
+    {id:2,date:'01/06/2023',title:'Nosso primeiro beijo 💋',desc:'Um momento que jamais esquecerei. O mundo parou por um segundo.',img:null},
+    {id:3,date:'14/02/2024',title:'Primeiro Dia dos Namorados 🌹',desc:'A data mais especial do calendário ficou ainda mais especial ao seu lado.',img:null}
+  ],
+  cartas: [
+    {id:1,title:'Abra quando sentir saudade',text:'Ei, você... Saiba que estou pensando em você agora. A distância é só física — no coração você está sempre aqui perto de mim.',img:null},
+    {id:2,title:'Abra quando precisar sorrir 😊',text:'Lembra daquele dia em que a gente riu sem parar por uma besteira enorme? Esse sorriso seu é meu lugar favorito no mundo.',img:null},
+    {id:3,title:'Abra quando precisar de força 💪',text:'Você é mais forte do que imagina. E mesmo assim, eu estarei sempre aqui para te apoiar em cada passo da caminhada.',img:null}
+  ],
+  hearts: [
+    'Você é meu lugar seguro. ❤️',
+    'Obrigado(a) por existir na minha vida.',
+    'Seu abraço é meu favorito no mundo inteiro.',
+    'Me sinto em casa quando estou com você.',
+    'Você é a melhor parte dos meus dias.',
+    'Cada dia ao seu lado é um presente.'
+  ],
+  coisas: [
+    {title:'Seu sorriso',desc:'Consegue melhorar qualquer dia ruim sem esforço.'},
+    {title:'Sua voz',desc:'O som mais bonito que já ouvi em toda a minha vida.'},
+    {title:'Seu abraço',desc:'O lugar mais seguro e aconchegante do mundo.'},
+    {title:'Sua risada',desc:'Contagiante e impossível de não se apaixonar.'},
+    {title:'Seus olhos',desc:'Consigo me perder neles por horas sem perceber.'},
+    {title:'Sua bondade',desc:'Você cuida das pessoas com uma delicadeza rara.'},
+    {title:'Sua força',desc:'Admiro como você supera tudo com leveza.'},
+    {title:'Seu jeito',desc:'Único, especial e completamente seu.'},
+    {title:'Sua presença',desc:'O cômodo fica diferente quando você entra.'},
+    {title:'Sua dedicação',desc:'Você dá o seu melhor em absolutamente tudo.'},
+    {title:'Seu carinho',desc:'Cada gesto seu aquece o meu coração.'},
+    {title:'Sua inteligência',desc:'Me encanta como você pensa e resolve tudo.'},
+    {title:'Sua paciência',desc:'Especialmente comigo nos dias difíceis.'},
+    {title:'Seu coração',desc:'Enorme, generoso e cheio de amor.'},
+    {title:'Sua beleza',desc:'Por dentro e por fora, sem comparação.'}
+  ],
+  gallery: {cats:['Nossos momentos','Viagens','Datas especiais','Favoritas'],items:[],active:'Nossos momentos'}
+};
+
+/* ============================================================
+   UTILS
+   ============================================================ */
+function setVar(p,v){document.documentElement.style.setProperty(p,v);}
+function toast(msg,ms=2400){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),ms);}
+function readFile(file){return new Promise(res=>{const r=new FileReader();r.onload=e=>res(e.target.result);r.readAsDataURL(file);});}
+
+/* ============================================================
+   CURSOR — fixed ring lag using rAF interpolation
+   ============================================================ */
+const cursorDot = document.getElementById('cursor-dot');
+const cursorRing = document.getElementById('cursor-ring');
+let mx=window.innerWidth/2, my=window.innerHeight/2;
+let rx=mx, ry=my;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cursorDot.style.left=mx+'px'; cursorDot.style.top=my+'px'; }, {passive:true});
+(function animCursor(){
+  rx+=(mx-rx)*0.15; ry+=(my-ry)*0.15;
+  cursorRing.style.left=rx+'px'; cursorRing.style.top=ry+'px';
+  requestAnimationFrame(animCursor);
+})();
+function toggleCursor(btn){
+  btn.classList.toggle('on');
+  if(btn.classList.contains('on')){document.body.classList.add('cursor-on');}
+  else{document.body.classList.remove('cursor-on');}
+}
+
+/* ============================================================
+   ADMIN PANEL
+   ============================================================ */
+function toggleAdmin(){document.getElementById('admin-panel').classList.toggle('open');}
+function adminTab(name,el){
+  document.querySelectorAll('.tab-admin').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-admin-content').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('tab-'+name).classList.add('active');
+}
+function toggleTheme(btn){
+  btn.classList.toggle('on');
+  document.body.dataset.theme=btn.classList.contains('on')?'dark':'light';
+}
+function toggleFx(name,btn){
+  btn.classList.toggle('on');
+  const el=document.getElementById(name+'-canvas');
+  if(el) el.style.display=btn.classList.contains('on')?'block':'none';
+}
+
+/* ============================================================
+   COUNTER
+   ============================================================ */
+function updateStartDate(){
+  const d=document.getElementById('start-date').value;
+  const t=document.getElementById('start-time').value||'00:00';
+  if(d){S.startDate=new Date(d+'T'+t);saveState();}
+}
+function tickCounter(){
+  if(!S.startDate) return;
+  const diff=Date.now()-S.startDate.getTime();
+  if(diff<0) return;
+  const days=Math.floor(diff/86400000);
+  const yrs=Math.floor(days/365);
+  const hrs=Math.floor((diff%86400000)/3600000);
+  const mins=Math.floor((diff%3600000)/60000);
+  const secs=Math.floor((diff%60000)/1000);
+  document.getElementById('c-days').textContent=days.toLocaleString('pt-BR');
+  document.getElementById('c-hours').textContent=String(hrs).padStart(2,'0');
+  document.getElementById('c-mins').textContent=String(mins).padStart(2,'0');
+  document.getElementById('c-secs').textContent=String(secs).padStart(2,'0');
+  const el=document.getElementById('counter-years');
+  el.textContent=yrs>0?`Já são ${yrs} ${yrs===1?'ano':'anos'} de amor! 🎉`:'';
+}
+setInterval(tickCounter,1000);
+
+/* ============================================================
+   HERO IMAGE
+   ============================================================ */
+function setCoverImg(input){
+  if(!input.files[0]) return;
+  readFile(input.files[0]).then(src=>{
+    const img=document.getElementById('hero-cover-img');
+    img.src=src; img.style.display='block';
+    saveState(); toast('✅ Foto de capa atualizada!');
+  });
+}
+function removeCoverImg(){
+  const img=document.getElementById('hero-cover-img');
+  img.src=''; img.style.display='none';
+  saveState(); toast('🗑️ Foto removida');
+}
+
+/* ============================================================
+   TIMELINE — sem botões de ação visíveis ao usuário
+   ============================================================ */
+function renderTL(){
+  const wrap=document.getElementById('tl-wrap');
+  if(!S.timeline.length){
+    wrap.innerHTML='<div class="tl-empty">Nenhum momento cadastrado ainda.<br>Adicione pelo painel de edição! ✨</div>';
+    renderAdminTL(); return;
+  }
+  wrap.innerHTML=S.timeline.map((item,i)=>{
+    const odd=i%2===0;
+    return `<div class="timeline-item reveal">
+      ${odd?'<div class="tl-spacer"></div>':''}
+      <div class="tl-dot-wrap"><div class="tl-dot"></div></div>
+      <div class="tl-content">
+        <div class="tl-badge">📅 ${item.date}</div>
+        <div class="tl-title">${item.title}</div>
+        <div class="tl-desc">${item.desc}</div>
+        ${item.img?`<img src="${item.img}" class="tl-img" alt="${item.title}" loading="lazy">`:''}
+      </div>
+      ${!odd?'<div class="tl-spacer"></div>':''}
+    </div>`;
+  }).join('');
+  renderAdminTL(); revealObs();
+}
+async function addTLItem(){
+  const title=document.getElementById('tl-in-title').value.trim();
+  if(!title){toast('❌ Adicione um título!');return;}
+  const date=document.getElementById('tl-in-date').value;
+  const desc=document.getElementById('tl-in-desc').value;
+  const file=document.getElementById('tl-in-img').files[0];
+  const img=file?await readFile(file):null;
+  S.timeline.push({id:Date.now(),date,title,desc,img});
+  ['tl-in-date','tl-in-title','tl-in-desc'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('tl-in-img').value='';
+  renderTL(); saveState(); toast('✅ Momento adicionado!');
+}
+function delTLItem(id){
+  if(!confirm('Excluir este momento?')) return;
+  S.timeline=S.timeline.filter(i=>i.id!==id);
+  renderTL(); saveState(); toast('🗑️ Momento removido');
+}
+function editTLItem(id){
+  const item=S.timeline.find(i=>i.id===id); if(!item) return;
+  const t=prompt('Título:',item.title); if(t!==null) item.title=t;
+  const d=prompt('Data:',item.date); if(d!==null) item.date=d;
+  const desc=prompt('Descrição:',item.desc); if(desc!==null) item.desc=desc;
+  renderTL(); saveState(); toast('✅ Momento editado!');
+}
+function moveTL(id,dir){
+  const i=S.timeline.findIndex(x=>x.id===id), ni=i+dir;
+  if(ni<0||ni>=S.timeline.length) return;
+  [S.timeline[i],S.timeline[ni]]=[S.timeline[ni],S.timeline[i]];
+  renderTL(); saveState();
+}
+function renderAdminTL(){
+  document.getElementById('tl-admin-list').innerHTML=
+    S.timeline.length?S.timeline.map((it,i)=>`
+      <div class="admin-list-item">
+        <span>📅 ${it.date} — ${it.title}</span>
+        <div class="item-actions">
+          <button onclick="editTLItem(${it.id})">✏️</button>
+          <button onclick="delTLItem(${it.id})">🗑️</button>
+          ${i>0?`<button onclick="moveTL(${it.id},-1)">⬆️</button>`:''}
+          ${i<S.timeline.length-1?`<button onclick="moveTL(${it.id},1)">⬇️</button>`:''}
+        </div>
+      </div>`).join('')
+    :'<p style="color:var(--text2);font-size:.8rem;text-align:center;padding:.5rem">Nenhum momento ainda</p>';
+}
+
+
+
+/* ============================================================
+   CARTAS
+   ============================================================ */
+function renderCartas(){
+  const grid=document.getElementById('cartas-grid');
+  grid.innerHTML=S.cartas.map(c=>`
+    <div class="carta-env reveal" id="carta-${c.id}">
+      <div class="carta-inner">
+        <div class="carta-face carta-front" onclick="openCarta(${c.id})">
+          <div class="carta-env-icon">📩</div>
+          <div class="carta-front-title">${c.title}</div>
+          <div class="carta-hint">Clique para abrir ✨</div>
+        </div>
+        <div class="carta-face carta-back">
+          <div class="carta-back-title">${c.title}</div>
+          <div class="carta-text">${c.text.replace(/\n/g,'<br>')}</div>
+          ${c.img?`<img src="${c.img}" class="carta-img-preview" alt="" loading="lazy">`:''}
+          <div class="carta-back-actions">
+            <button class="carta-close" onclick="closeCarta(${c.id})">✕ Fechar</button>
+            <div class="carta-back-btns">
+              <button onclick="editCarta(${c.id})">✏️</button>
+              <button onclick="delCarta(${c.id})">🗑️</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`).join('');
+  renderAdminCartas(); revealObs();
+}
+function openCarta(id){document.getElementById('carta-'+id)?.classList.add('open');}
+function closeCarta(id){document.getElementById('carta-'+id)?.classList.remove('open');}
+async function addCarta(){
+  const title=document.getElementById('carta-in-title').value.trim();
+  if(!title){toast('❌ Adicione um título!');return;}
+  const text=document.getElementById('carta-in-text').value;
+  const file=document.getElementById('carta-in-img').files[0];
+  const img=file?await readFile(file):null;
+  S.cartas.push({id:Date.now(),title,text,img});
+  ['carta-in-title','carta-in-text'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('carta-in-img').value='';
+  renderCartas(); saveState(); toast('💌 Carta adicionada!');
+}
+function delCarta(id){
+  if(!confirm('Excluir esta carta?')) return;
+  S.cartas=S.cartas.filter(c=>c.id!==id);
+  renderCartas(); saveState(); toast('🗑️ Carta removida');
+}
+function editCarta(id){
+  const c=S.cartas.find(x=>x.id===id); if(!c) return;
+  const t=prompt('Título:',c.title); if(t!==null) c.title=t;
+  const txt=prompt('Mensagem:',c.text); if(txt!==null) c.text=txt;
+  renderCartas(); saveState(); toast('✅ Carta editada!');
+}
+function renderAdminCartas(){
+  document.getElementById('carta-admin-list').innerHTML=
+    S.cartas.length?S.cartas.map(c=>`
+      <div class="admin-list-item"><span>💌 ${c.title}</span>
+        <div class="item-actions">
+          <button onclick="editCarta(${c.id})">✏️</button>
+          <button onclick="delCarta(${c.id})">🗑️</button>
+        </div>
+      </div>`).join('')
+    :'<p style="color:var(--text2);font-size:.8rem;text-align:center;padding:.5rem">Nenhuma carta ainda</p>';
+}
+
+/* ============================================================
+   SECRET HEARTS
+   ============================================================ */
+function renderSecretHearts(){
+  document.querySelectorAll('.secret-heart').forEach(h=>h.remove());
+  if(!S.hearts.length) return;
+  const count=Math.min(parseInt(document.getElementById('heart-count').value)||6,20);
+  const color=document.getElementById('heart-color').value||'#ff6b9d';
+  const size=parseInt(document.getElementById('heart-size').value)||28;
+  for(let i=0;i<count;i++){
+    const h=document.createElement('div');
+    h.className='secret-heart';
+    h.textContent='❤';
+    h.style.cssText=`font-size:${size}px;color:${color};left:${5+Math.random()*88}%;top:${8+Math.random()*84}%;animation-delay:${(Math.random()*3).toFixed(2)}s;animation-duration:${(2.5+Math.random()*2).toFixed(2)}s;`;
+    const msg=S.hearts[i%S.hearts.length];
+    h.onclick=()=>showHeartModal(msg);
+    document.body.appendChild(h);
+  }
+  renderAdminHearts();
+}
+function addHeartMsg(){
+  const msg=document.getElementById('heart-in-msg').value.trim();
+  if(!msg) return;
+  S.hearts.push(msg);
+  document.getElementById('heart-in-msg').value='';
+  renderSecretHearts(); saveState(); toast('❤️ Mensagem adicionada!');
+}
+function delHeartMsg(i){S.hearts.splice(i,1);renderAdminHearts();renderSecretHearts();saveState();}
+function renderAdminHearts(){
+  document.getElementById('heart-admin-list').innerHTML=
+    S.hearts.length?S.hearts.map((m,i)=>`
+      <div class="admin-list-item"><span>${m}</span>
+        <div class="item-actions"><button onclick="delHeartMsg(${i})">🗑️</button></div>
+      </div>`).join('')
+    :'<p style="color:var(--text2);font-size:.8rem;text-align:center;padding:.5rem">Nenhuma mensagem ainda</p>';
+}
+function showHeartModal(msg){document.getElementById('hm-msg').textContent=msg;document.getElementById('heart-modal').style.display='flex';}
+function closeHeartModal(){document.getElementById('heart-modal').style.display='none';}
+
+/* ============================================================
+   100 COISAS
+   ============================================================ */
+function renderCoisas(){
+  const grid=document.getElementById('coisas-grid');
+  grid.innerHTML=S.coisas.map((c,i)=>`
+    <div class="coisa-item">
+      <span class="coisa-num">${String(i+1).padStart(2,'0')}</span>
+      <div class="coisa-title">${c.title}</div>
+      ${c.desc?`<div class="coisa-tooltip">${c.desc}</div>`:''}
+    </div>`).join('');
+  document.getElementById('coisa-count').textContent=S.coisas.length;
+  renderAdminCoisas();
+}
+function addCoisa(){
+  const t=document.getElementById('coisa-in-title').value.trim(); if(!t) return;
+  const d=document.getElementById('coisa-in-desc').value.trim();
+  S.coisas.push({title:t,desc:d});
+  document.getElementById('coisa-in-title').value='';
+  document.getElementById('coisa-in-desc').value='';
+  renderCoisas(); saveState(); toast('🌹 Item adicionado!');
+}
+function delCoisa(i){S.coisas.splice(i,1);renderCoisas();saveState();}
+function editCoisa(i){
+  const c=S.coisas[i]; if(!c) return;
+  const t=prompt('Título:',c.title); if(t!==null) c.title=t;
+  const d=prompt('Descrição:',c.desc); if(d!==null) c.desc=d;
+  renderCoisas(); saveState(); toast('✅ Item editado!');
+}
+function renderAdminCoisas(){
+  document.getElementById('coisa-admin-list').innerHTML=
+    S.coisas.map((c,i)=>`
+      <div class="admin-list-item"><span>${String(i+1).padStart(2,'0')}. ${c.title}</span>
+        <div class="item-actions">
+          <button onclick="editCoisa(${i})">✏️</button>
+          <button onclick="delCoisa(${i})">🗑️</button>
+        </div>
+      </div>`).join('');
+}
+
+/* ============================================================
+   GALLERY
+   ============================================================ */
+let lbItems=[],lbIdx=0;
+function renderGallery(){
+  document.getElementById('gal-tabs').innerHTML=
+    S.gallery.cats.map(cat=>`<button class="gallery-tab ${cat===S.gallery.active?'active':''}" onclick="setGalTab('${cat}')">${cat}</button>`).join('');
+  const items=S.gallery.items.filter(i=>i.cat===S.gallery.active);
+  lbItems=items;
+  const grid=document.getElementById('gal-grid');
+  if(!items.length){grid.innerHTML='<div class="gallery-empty">📷 Nenhuma foto nesta categoria.<br>Adicione pelo painel de edição!</div>';renderAdminCats();return;}
+  grid.innerHTML=items.map((item,i)=>`
+    <div class="gallery-item reveal" onclick="openLB(${i})">
+      ${item.src?`<img src="${item.src}" alt="${item.caption}" loading="lazy">`:'<div class="gallery-placeholder">📷</div>'}
+      <div class="gallery-info">
+        <div class="gallery-caption">${item.caption}</div>
+        ${item.date?`<div class="gallery-date">🗓️ ${item.date}</div>`:''}
+      </div>
+      <div class="gallery-actions">
+        <button onclick="event.stopPropagation();editGalItem(${item.id})">✏️</button>
+        <button onclick="event.stopPropagation();delGalItem(${item.id})">🗑️</button>
+      </div>
+    </div>`).join('');
+  renderAdminCats(); revealObs();
+}
+function setGalTab(cat){S.gallery.active=cat;renderGallery();}
+async function addGalleryItem(){
+  const files=document.getElementById('gal-in-img').files;
+  const cat=document.getElementById('gal-in-cat').value;
+  const caption=document.getElementById('gal-in-caption').value||'Nosso momento';
+  const date=document.getElementById('gal-in-date').value||'';
+  if(!files.length){toast('❌ Selecione uma foto!');return;}
+  for(const file of files){const src=await readFile(file);S.gallery.items.push({id:Date.now()+Math.random(),cat,caption,date,src});}
+  S.gallery.active=cat;
+  document.getElementById('gal-in-caption').value='';
+  document.getElementById('gal-in-date').value='';
+  document.getElementById('gal-in-img').value='';
+  renderGallery(); saveState(); toast(`📸 ${files.length>1?files.length+' fotos adicionadas':'Foto adicionada'}!`);
+}
+function delGalItem(id){
+  if(!confirm('Excluir esta foto?')) return;
+  S.gallery.items=S.gallery.items.filter(i=>i.id!==id);
+  renderGallery(); saveState(); toast('🗑️ Foto removida');
+}
+function editGalItem(id){
+  const item=S.gallery.items.find(i=>i.id===id); if(!item) return;
+  const c=prompt('Legenda:',item.caption); if(c!==null) item.caption=c;
+  const d=prompt('Data:',item.date); if(d!==null) item.date=d;
+  renderGallery(); saveState(); toast('✅ Foto editada!');
+}
+function addGalleryCategory(){
+  const name=document.getElementById('new-cat-in').value.trim(); if(!name) return;
+  if(S.gallery.cats.includes(name)){toast('⚠️ Categoria já existe');return;}
+  S.gallery.cats.push(name);
+  document.getElementById('gal-in-cat').innerHTML+=`<option>${name}</option>`;
+  document.getElementById('new-cat-in').value='';
+  renderGallery(); saveState(); toast('🗂️ Categoria criada!');
+}
+function delGalleryCategory(cat){
+  if(!confirm(`Excluir categoria "${cat}" e todas as suas fotos?`)) return;
+  S.gallery.cats=S.gallery.cats.filter(c=>c!==cat);
+  S.gallery.items=S.gallery.items.filter(i=>i.cat!==cat);
+  S.gallery.active=S.gallery.cats[0]||'';
+  renderGallery(); renderAdminCats(); saveState(); toast('🗑️ Categoria removida');
+}
+function renderAdminCats(){
+  const sel=document.getElementById('gal-in-cat');
+  const cur=sel?sel.value:'';
+  if(sel) sel.innerHTML=S.gallery.cats.map(c=>`<option${c===cur?' selected':''}>${c}</option>`).join('');
+  document.getElementById('cat-admin-list').innerHTML=
+    S.gallery.cats.map(cat=>`
+      <div class="admin-list-item">
+        <span>🗂️ ${cat} (${S.gallery.items.filter(i=>i.cat===cat).length} fotos)</span>
+        <div class="item-actions">
+          <button onclick="setGalTab('${cat}');toast('📂 Exibindo: ${cat}')">👁️</button>
+          ${S.gallery.cats.length>1?`<button onclick="delGalleryCategory('${cat}')">🗑️</button>`:''}
+        </div>
+      </div>`).join('');
+}
+function openLB(i){lbIdx=i;const item=lbItems[i];if(!item||!item.src)return;document.getElementById('lb-img').src=item.src;document.getElementById('lightbox-caption').textContent=item.caption+(item.date?' — '+item.date:'');document.getElementById('lightbox').classList.add('active');}
+function closeLB(){document.getElementById('lightbox').classList.remove('active');}
+function lbNav(d){lbIdx=(lbIdx+d+lbItems.length)%lbItems.length;openLB(lbIdx);}
+document.getElementById('lightbox').addEventListener('click',e=>{if(e.target===document.getElementById('lightbox'))closeLB();});
+document.addEventListener('keydown',e=>{if(!document.getElementById('lightbox').classList.contains('active'))return;if(e.key==='Escape')closeLB();if(e.key==='ArrowLeft')lbNav(-1);if(e.key==='ArrowRight')lbNav(1);});
+
+/* ============================================================
+   MUSIC — playlist completa com prev/next/autoplay
+   ============================================================ */
+const aud=document.getElementById('audio-el');
+let playing=false;
+
+function loadTrack(index){
+  if(!S.musicPlaylist.length) return;
+  S.musicIndex=((index%S.musicPlaylist.length)+S.musicPlaylist.length)%S.musicPlaylist.length;
+  const track=S.musicPlaylist[S.musicIndex];
+  aud.src=track.src;
+  document.getElementById('music-title').textContent=track.name;
+  renderPlaylistAdmin();
+}
+function nextTrack(){
+  if(!S.musicPlaylist.length) return;
+  loadTrack(S.musicIndex+1);
+  if(playing){aud.play().catch(()=>{});}
+}
+function prevTrack(){
+  if(!S.musicPlaylist.length) return;
+  loadTrack(S.musicIndex-1);
+  if(playing){aud.play().catch(()=>{});}
+}
+function toggleMusic(){
+  if(!S.musicPlaylist.length){toast('⚠️ Adicione músicas pelo painel!');return;}
+  if(!aud.src) loadTrack(0);
+  if(playing){aud.pause();playing=false;}
+  else{aud.play().catch(()=>{});playing=true;}
+  updateMusicUI();
+}
+function updateMusicUI(){
+  document.getElementById('music-btn').textContent=playing?'⏸':'▶';
+  document.getElementById('music-bars').classList.toggle('paused',!playing);
+}
+function setVolume(v){aud.volume=parseFloat(v);document.getElementById('vol-icon').textContent=v>0.5?'🔊':v>0?'🔉':'🔇';}
+aud.addEventListener('ended',()=>{nextTrack();aud.play().catch(()=>{});playing=true;updateMusicUI();});
+
+async function addMusicFiles(input){
+  const wasEmpty=S.musicPlaylist.length===0;
+  for(const file of input.files){
+    const src=await readFile(file);
+    const name=file.name.replace(/\.[^/.]+$/,'');
+    S.musicPlaylist.push({name,src});
+  }
+  if(wasEmpty && S.musicPlaylist.length) loadTrack(0);
+  renderPlaylistAdmin();
+  saveState();
+  toast(`🎵 ${input.files.length} música(s) adicionada(s)!`);
+  input.value='';
+}
+function removeMusicTrack(index){
+  S.musicPlaylist.splice(index,1);
+  if(S.musicIndex>=S.musicPlaylist.length) S.musicIndex=0;
+  if(S.musicPlaylist.length){loadTrack(S.musicIndex);}
+  else{aud.src='';aud.pause();playing=false;updateMusicUI();document.getElementById('music-title').textContent='Adicione músicas ♪';}
+  renderPlaylistAdmin(); saveState();
+}
+function renderPlaylistAdmin(){
+  const el=document.getElementById('playlist-admin-list'); if(!el) return;
+  if(!S.musicPlaylist.length){el.innerHTML='<p style="color:var(--text2);font-size:.8rem;text-align:center;padding:.5rem">Nenhuma música na playlist</p>';return;}
+  el.innerHTML=S.musicPlaylist.map((t,i)=>`
+    <div class="admin-list-item" style="${i===S.musicIndex?'border-left:3px solid var(--primary);':''}">
+      <span>🎵 ${t.name}</span>
+      <div class="item-actions">
+        <button onclick="loadTrack(${i});if(!playing){playing=false;}else{aud.play().catch(()=>{});}"  title="Tocar">▶</button>
+        <button onclick="removeMusicTrack(${i})" title="Remover">🗑️</button>
+      </div>
+    </div>`).join('');
+}
+
+/* ============================================================
+   FINAL HEART BURST
+   ============================================================ */
+function showFinalHeart(){
+  for(let i=0;i<12;i++){
+    const h=document.createElement('div');
+    const dx=[-80,-60,-40,-20,0,20,40,60,80][Math.floor(Math.random()*9)];
+    h.style.cssText=`position:fixed;left:50%;bottom:20%;font-size:${16+Math.random()*20}px;pointer-events:none;z-index:9999;animation:hBurst .9s ease forwards;transform:translate(-50%,-50%);`;
+    h.textContent='❤';
+    document.body.appendChild(h);
+    h.animate([{opacity:1,transform:`translate(-50%,-50%) rotate(${Math.random()*360}deg) scale(1)`},{opacity:0,transform:`translate(calc(-50% + ${dx}px),calc(-50% - 120px)) rotate(${Math.random()*360}deg) scale(0.3)`}],{duration:900,easing:'ease-out',fill:'forwards'});
+    setTimeout(()=>h.remove(),950);
+  }
+  const msgs=['Te amo para sempre! ❤️','Você é o amor da minha vida! 💕','Obrigado(a) por tudo! 🌹','Você me faz tão feliz! ✨'];
+  showHeartModal(msgs[Math.floor(Math.random()*msgs.length)]);
+}
+
+/* ============================================================
+   CANVAS — STARS
+   ============================================================ */
+const SC=document.getElementById('stars-canvas'),sCtx=SC.getContext('2d');let stars=[];
+function initStars(){SC.width=innerWidth;SC.height=innerHeight;stars=Array.from({length:180},()=>({x:Math.random()*SC.width,y:Math.random()*SC.height,r:Math.random()*1.8+.2,phase:Math.random()*Math.PI*2,spd:Math.random()*.015+.004}));}
+function animStars(){sCtx.clearRect(0,0,SC.width,SC.height);const now=Date.now()*.001;stars.forEach(s=>{const a=Math.abs(Math.sin(now*s.spd*8+s.phase));sCtx.beginPath();sCtx.arc(s.x,s.y,s.r,0,Math.PI*2);sCtx.fillStyle=`rgba(255,215,235,${a*.9+.05})`;sCtx.fill();});requestAnimationFrame(animStars);}
+
+/* ============================================================
+   CANVAS — PETALS
+   ============================================================ */
+const PC=document.getElementById('petals-canvas'),pCtx=PC.getContext('2d');let petals=[];
+function mkPetal(){return{x:Math.random()*innerWidth,y:-15,sz:5+Math.random()*9,spd:.6+Math.random()*1.4,sw:Math.random()*1.8-.9,swspd:.01+Math.random()*.02,ang:0,col:`hsl(${315+Math.random()*30},85%,${68+Math.random()*18}%)`};}
+function initPetals(){PC.width=innerWidth;PC.height=innerHeight;petals=Array.from({length:35},()=>{const p=mkPetal();p.y=Math.random()*PC.height;return p;});}
+function animPetals(){pCtx.clearRect(0,0,PC.width,PC.height);petals.forEach((p,i)=>{p.y+=p.spd;p.x+=Math.sin(p.ang)*p.sw;p.ang+=p.swspd;pCtx.save();pCtx.translate(p.x,p.y);pCtx.rotate(p.ang*4);pCtx.beginPath();pCtx.ellipse(0,0,p.sz,p.sz*.5,0,0,Math.PI*2);pCtx.fillStyle=p.col+'bb';pCtx.fill();pCtx.restore();if(p.y>PC.height+20) petals[i]=mkPetal();});requestAnimationFrame(animPetals);}
+
+/* ============================================================
+   CANVAS — FLOATING HEARTS
+   ============================================================ */
+const HC=document.getElementById('fhearts-canvas'),hCtx=HC.getContext('2d');let fhearts=[];
+function mkFHeart(){return{x:Math.random()*innerWidth,y:innerHeight+20,sz:8+Math.random()*14,spd:.3+Math.random()*.7,op:.2+Math.random()*.45,sw:Math.random()*1.5-.75,ang:0};}
+function initFHearts(){HC.width=innerWidth;HC.height=innerHeight;fhearts=Array.from({length:14},()=>{const h=mkFHeart();h.y=Math.random()*innerHeight;return h;});}
+function animFHearts(){hCtx.clearRect(0,0,HC.width,HC.height);fhearts.forEach((h,i)=>{h.y-=h.spd;h.x+=Math.sin(h.ang)*h.sw;h.ang+=.018;hCtx.save();hCtx.globalAlpha=h.op;hCtx.font=(h.sz*2)+'px serif';hCtx.fillText('❤',h.x,h.y);hCtx.restore();if(h.y<-25)fhearts[i]={...mkFHeart(),y:innerHeight+20};});requestAnimationFrame(animFHearts);}
+
+/* ============================================================
+   SCROLL REVEAL
+   ============================================================ */
+function revealObs(){
+  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.08});
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el=>obs.observe(el));
+}
+window.addEventListener('scroll',()=>{document.getElementById('back-top').classList.toggle('visible',scrollY>600);},{passive:true});
+let resizeT;
+window.addEventListener('resize',()=>{clearTimeout(resizeT);resizeT=setTimeout(()=>{initStars();initPetals();initFHearts();},250);},{passive:true});
+
+/* ============================================================
+   LOCALSTORAGE — save / load / export / import
+   ============================================================ */
+let _saveTimer=null;
+function debounceSave(){clearTimeout(_saveTimer);_saveTimer=setTimeout(saveState,500);}
+
+function saveState(){
+  try{
+    const d={
+      timeline:S.timeline.map(i=>({...i})),
+      cartas:S.cartas.map(c=>({...c})),
+      hearts:[...S.hearts],
+      coisas:S.coisas.map(c=>({...c})),
+      gallery:{cats:[...S.gallery.cats],items:S.gallery.items.map(i=>({...i})),active:S.gallery.active},
+      musicPlaylist:S.musicPlaylist.map(t=>({name:t.name,src:t.src})),
+      startDate:S.startDate?S.startDate.toISOString():null,
+      coverImg:(()=>{const el=document.getElementById('hero-cover-img');return(el&&el.style.display!=='none'&&el.src&&el.src.length>10)?el.src:null;})(),
+      coupleNames:document.getElementById('couple-names').textContent,
+      heroPhrase:document.getElementById('hero-phrase').textContent,
+      savedAt:new Date().toISOString()
+    };
+    localStorage.setItem('nossoAmor_v2',JSON.stringify(d));
+  }catch(e){console.warn('saveState error:',e);}
+}
+
+function loadState(){
+  try{
+    const raw=localStorage.getItem('nossoAmor_v2'); if(!raw) return;
+    const d=JSON.parse(raw);
+    if(d.timeline?.length) S.timeline=d.timeline;
+    if(d.cartas?.length) S.cartas=d.cartas;
+    if(d.hearts?.length) S.hearts=d.hearts;
+    if(d.coisas?.length) S.coisas=d.coisas;
+    if(d.gallery){
+      if(d.gallery.cats?.length) S.gallery.cats=d.gallery.cats;
+      if(d.gallery.items?.length) S.gallery.items=d.gallery.items;
+      if(d.gallery.active) S.gallery.active=d.gallery.active;
+    }
+    if(d.musicPlaylist?.length){S.musicPlaylist=d.musicPlaylist;}
+    if(d.startDate){
+      S.startDate=new Date(d.startDate);
+      document.getElementById('start-date').value=S.startDate.toISOString().slice(0,10);
+      document.getElementById('start-time').value=S.startDate.toTimeString().slice(0,5);
+    }
+    if(d.coverImg&&d.coverImg.length>10){
+      const img=document.getElementById('hero-cover-img');
+      img.src=d.coverImg; img.style.display='block';
+    }
+    if(d.coupleNames){
+      document.getElementById('couple-names').textContent=d.coupleNames;
+      const el=document.getElementById('in-names'); if(el) el.value=d.coupleNames;
+    }
+    if(d.heroPhrase){
+      document.getElementById('hero-phrase').textContent=d.heroPhrase;
+      const el=document.getElementById('in-phrase'); if(el) el.value=d.heroPhrase;
+    }
+  }catch(e){console.warn('loadState error:',e);}
+}
+
+function exportData(){
+  const d={
+    timeline:S.timeline,cartas:S.cartas,hearts:S.hearts,coisas:S.coisas,gallery:S.gallery,
+    musicPlaylist:S.musicPlaylist,
+    startDate:S.startDate?S.startDate.toISOString():null,
+    coverImg:(()=>{const el=document.getElementById('hero-cover-img');return(el&&el.style.display!=='none'&&el.src&&el.src.length>10)?el.src:null;})(),
+    coupleNames:document.getElementById('couple-names').textContent,
+    heroPhrase:document.getElementById('hero-phrase').textContent,
+    exportedAt:new Date().toISOString(),version:2
+  };
+  const blob=new Blob([JSON.stringify(d,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url; a.download=`nosso-amor-backup-${new Date().toISOString().slice(0,10)}.json`;
+  a.click(); URL.revokeObjectURL(url); toast('✅ Dados exportados!');
+}
+
+function importData(input){
+  if(!input.files[0]) return;
+  if(!confirm('Isso substituirá todos os dados atuais. Tem certeza?')) return;
+  const r=new FileReader();
+  r.onload=e=>{
+    try{
+      const d=JSON.parse(e.target.result);
+      if(d.timeline) S.timeline=d.timeline;
+      if(d.cartas) S.cartas=d.cartas;
+      if(d.hearts) S.hearts=d.hearts;
+      if(d.coisas) S.coisas=d.coisas;
+      if(d.gallery) S.gallery=d.gallery;
+      if(d.musicPlaylist){S.musicPlaylist=d.musicPlaylist;if(S.musicPlaylist.length)loadTrack(0);renderPlaylistAdmin();}
+      if(d.startDate){S.startDate=new Date(d.startDate);document.getElementById('start-date').value=S.startDate.toISOString().slice(0,10);document.getElementById('start-time').value=S.startDate.toTimeString().slice(0,5);}
+      if(d.coverImg&&d.coverImg.length>10){const img=document.getElementById('hero-cover-img');img.src=d.coverImg;img.style.display='block';}
+      if(d.coupleNames){document.getElementById('couple-names').textContent=d.coupleNames;const el=document.getElementById('in-names');if(el)el.value=d.coupleNames;}
+      if(d.heroPhrase){document.getElementById('hero-phrase').textContent=d.heroPhrase;const el=document.getElementById('in-phrase');if(el)el.value=d.heroPhrase;}
+      renderTL();renderCartas();renderCoisas();renderGallery();renderSecretHearts();
+      saveState(); toast('✅ Dados importados com sucesso!');
+    }catch(err){toast('❌ Arquivo inválido!');}
+  };
+  r.readAsText(input.files[0]); input.value='';
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+window.addEventListener('DOMContentLoaded',()=>{
+
+  // 1. Carregar estado salvo
+  loadState();
+
+  // 2. Popular select de categorias
+  const sel=document.getElementById('gal-in-cat');
+  if(sel) sel.innerHTML=S.gallery.cats.map(c=>`<option>${c}</option>`).join('');
+
+  // 3. Renderizar todas as seções
+  renderTL();
+  renderCartas();
+  renderCoisas();
+  renderGallery();
+  renderSecretHearts();
+  renderPlaylistAdmin();
+
+  // 4. Se tem playlist salva, carrega
+  if(S.musicPlaylist.length) loadTrack(S.musicIndex||0);
+
+  // 5. Canvas
+  initStars(); animStars();
+  initPetals(); animPetals();
+  initFHearts(); animFHearts();
+
+  // 6. Scroll reveal
+  revealObs();
+
+  // 7. Data padrão (só se não carregou do storage)
+  if(!S.startDate){
+    const ago=new Date();
+    ago.setFullYear(ago.getFullYear()-1);
+    document.getElementById('start-date').value=ago.toISOString().slice(0,10);
+    S.startDate=ago;
+  }
+  tickCounter();
+
+  // 8. Autoplay na primeira interação do usuário
+  let autoStarted=false;
+  function tryAutoplay(){
+    if(autoStarted||!S.musicPlaylist.length) return;
+    autoStarted=true;
+    loadTrack(S.musicIndex||0);
+    aud.play().then(()=>{playing=true;updateMusicUI();}).catch(()=>{});
+    document.removeEventListener('click',tryAutoplay);
+    document.removeEventListener('touchstart',tryAutoplay);
+    document.removeEventListener('keydown',tryAutoplay);
+    document.removeEventListener('scroll',tryAutoplay);
+  }
+  ['click','touchstart','keydown','scroll'].forEach(ev=>
+    document.addEventListener(ev,tryAutoplay,{once:true,passive:true})
+  );
+});
+</script>
+</body>
+</html>
